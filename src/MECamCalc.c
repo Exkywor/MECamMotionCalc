@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <math.h>
 
-void *promptValues(float *arr, char *name);
-float relativize(float lengths[], float startTime, float endTime, float point[]);
+void promptValues(float arr[3], char *name);
+float relativize(float lengths[], float startTime, float endTime, float point[2]);
 float calculateVals(float res[2][3], float targetTime, float timelineLength,
-                    float posS[], float posE[], float rotS[], float rotE[]);
+                    float posS[3], float posE[3], float rotS[3], float rotE[3]);
 float calculateVal(float x, float x2, float y2, float y1);
 void printVals(float vals[3]); 
 
 int main() {
-	int span;
+	int span = 0;
 	printf("How many InterpDatas does the camera movement span? ");
 	if ((scanf("%d", &span) != 1) || (span <= 1)) {
 		printf("Error: Span must be a number bigger than 1\n");
@@ -17,7 +17,7 @@ int main() {
 	}
 	
 	float lengths[span];
-	float timelineLength;
+	float timelineLength = 0;
 	// NEED TO VALIDATE THAT THEY ARE NOT OUTSIDE INTERPDATA BOUNDS
 	float startTime;
 	float endTime;
@@ -41,11 +41,11 @@ int main() {
 	}
 	
 	// Starting values
-	float posS[3];
-	float rotS[3];
+	float posS[3] = {0};
+	float rotS[3] = {0};
 	// Ending values
-	float posE[3];
-	float rotE[3];
+	float posE[3] = {0};
+	float rotE[3] = {0};
 	// Prompt for values
 	promptValues(posS, "Starting position");
 	promptValues(rotS, "Starting rotation");
@@ -106,15 +106,15 @@ int main() {
 	
 	
 // Prompts user for positional and rotational values
-void *promptValues(float *arr, char *name) {
+void promptValues(float arr[3], char *name) {
 	printf("%s as comma separated values (x,y,z): ", name);
 	scanf("%f,%f,%f", &arr[0], &arr[1], &arr[2]);
 }
 
 // PARAMS: The lengths of the InterpDatas, the startTime and endTime in InterpDatas 0 and n,
 // and the point to convert to relative time [interp, time in interp]
-float relativize(float lengths[], float startTime, float endTime, float point[]) {
-	float realTime;
+float relativize(float lengths[], float startTime, float endTime, float point[2]) {
+	float realTime = 0;
 	for (int i = 0; i <= point[0]; i++) {
 		if (i == 0) {
 			if (round(point[0]) == 0) { // Target interp is the first interp
@@ -135,7 +135,7 @@ float relativize(float lengths[], float startTime, float endTime, float point[])
 // PARAMS: The array in which to store the resulting values [pos[x,y,z], rot[x,y,z]], the target time, the length of the timeline
 // and the starting and ending values
 float calculateVals(float res[2][3], float targetTime, float timelineLength,
-                    float posS[], float posE[], float rotS[], float rotE[]) {
+                    float posS[3], float posE[3], float rotS[3], float rotE[3]) {
     // Calculate position values
 	for (int i = 0; i < 3; i++) {
 		res[0][i] = calculateVal(targetTime, timelineLength, posE[i], posS[i]);
