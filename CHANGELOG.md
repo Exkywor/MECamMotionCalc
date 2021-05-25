@@ -7,9 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 1.0.1 - 2021-05-25
 
-- Improve user prompts and result styles.
+- Improved user prompts and result styles.
 - Improved internal code to prevent bugs and inexact values.
-- Add usage example to `README.md`, and add `CHANGELOG.md` file.
+- Added usage example to `README.md`, and add `CHANGELOG.md` file.
 
 ## 1.0.0 - 2021-05-24
 
