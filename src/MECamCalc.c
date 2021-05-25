@@ -61,13 +61,13 @@ int main() {
 	float pointsToFind[nToFind][2];
 	// NEED TO VALIDATE THAT THEY ARE NOT OUTSIDE INTERPDATA BOUNDS
 	for (int i = 0; i < nToFind; i++) {
-		int s;
+		float id;
 		float t;
 		printf("In which InterpData (1 to n) does time point %d happen? ", i+1);
-		scanf("%d", &s);
+		scanf("%f", &id);
 		printf("At what time of it does time point %d happen? ", i+1);
 		scanf("%f", &t);
-		pointsToFind[i][0] = (float)(s-1);
+		pointsToFind[i][0] = id-1;
 		pointsToFind[i][1] = t;
 	}
 	
@@ -81,6 +81,11 @@ int main() {
 					  rotS, rotE);
 	}
 
+	printf("%f\n", pointsToFind[0][0]);
+	printf("%f\n", pointsToFind[0][1]);
+	printf("%f\n", pointsToFind[1][0]);
+	printf("%f\n", pointsToFind[1][1]);
+
 	// Print resulting information
 	printf("\nSTARTING POINT\n");
 	printf("InterpData 1, at time %.2f\n", startTime);
@@ -92,8 +97,9 @@ int main() {
 	printf("\n");
 	// printf("REQUESTED POINTS\n----------------\n");
 	for (int i = 0; i < nToFind; i++) {
+		int id = round(pointsToFind[i][0]+1);
 		printf("TIME POINT %d:\n", i+1);
-		printf("InterpData %d, at time %.2f\n", i+1, pointsToFind[i][1]);
+		printf("InterpData %d, at time %.2f\n", id, pointsToFind[i][1]);
 		printf("----------------------------\n");
 		printf("Position: ");
 		printVals(resPoints[i][0]);
