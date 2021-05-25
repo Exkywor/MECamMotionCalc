@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 void *promptValues(float *arr, char *name);
 float relativize(float lengths[], float startTime, float endTime, float point[]);
@@ -21,7 +22,7 @@ int main() {
 	float startTime;
 	float endTime;
 	for (int i = 0; i < span; i++) {
-		printf("Input InterpData %d length in seconds: ", i+1);
+		printf("InterpData %d length in seconds: ", i+1);
 		if ((scanf("%f", &lengths[i])) != 1) {
 			printf("Error: InterpData length must be a number\n");
 			return 0;
@@ -38,7 +39,6 @@ int main() {
 			timelineLength += lengths[i];
 		}
 	}
-	printf("Your timeline length is: %f seconds\n", timelineLength);
 	
 	// Starting values
 	float posS[3];
@@ -48,9 +48,9 @@ int main() {
 	float rotE[3];
 	// Prompt for values
 	promptValues(posS, "starting position");
-	promptValues(rotS, "starting rotation");
-	promptValues(posE, "ending position");
-	promptValues(rotE, "ending rotation");
+	promptValues(rotS, "Starting rotation");
+	promptValues(posE, "Ending position");
+	promptValues(rotE, "Ending rotation");
 	
 	// Prompt for how many points the user wants to find
 	int nToFind;
@@ -80,15 +80,15 @@ int main() {
 	}
 
 	// Print resulting information
-	printf("STARTING POINT\n--------------");
+	printf("\nSTARTING POINT\n--------------\n");
 	printf("Position: ");
 	printVals(posS);
 	printf("Rotation: ");
 	printVals(rotS);
 	printf("\n");
-	printf("REQUESTED POINTS\n----------------");
+	// printf("REQUESTED POINTS\n----------------\n");
 	for (int i = 0; i < nToFind; i++) {
-		printf("POINT %d:\n--------", i);
+		printf("POINT %d:\n--------\n", i+1);
 		printf("Position: ");
 		printVals(resPoints[i][0]);
 		printf("Rotation: ");
@@ -107,9 +107,9 @@ int main() {
 	
 // Prompts user for positional and rotational values
 void *promptValues(float *arr, char *name) {
-	printf("Input %s as comma separated values (x,y,z): ", name);
+	printf("%s as comma separated values (x,y,z): ", name);
 	scanf("%f,%f,%f", &arr[0], &arr[1], &arr[2]);
-	printf("%f %f %f\n", arr[0], arr[1], arr[2]);
+	printf("%.2f %.2f %.2f\n", arr[0], arr[1], arr[2]);
 }
 
 // PARAMS: The lengths of the InterpDatas, the startTime and endTime in InterpDatas 0 and n,
@@ -118,7 +118,7 @@ float relativize(float lengths[], float startTime, float endTime, float point[])
 	float realTime;
 	for (int i = 0; i <= point[0]; i++) {
 		if (i == 0) {
-			if ((int)point[0] == 0) { // Target interp is the first interp
+			if (round(point[0]) == 0) { // Target interp is the first interp
 				 realTime = ((lengths[0] - startTime) - (lengths[0] - point[1]));
 				 break;
 			} else {
@@ -153,7 +153,7 @@ float calculateVal(float x, float x2, float y2, float y1) {
 
 void printVals(float vals[3]) {
 	for (int i = 0; i < 3; i++) {
-		printf("%f ", vals[i]);
+		printf("%.2f ", vals[i]);
 	}
 	printf("\n");
 }
