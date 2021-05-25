@@ -22,7 +22,7 @@ For how many time points do you want to calculate values? 2
 In which InterpData (1 to n) does time point 1 happen? 1
 At what time of it does time point 1 happen? 5.55
 In which InterpData (1 to n) does time point 2 happen? 3
-At what time of it does point 2 happen? 0
+At what time of it does time point 2 happen? 0
 ```
 After this, the results will be:
 
