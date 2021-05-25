@@ -47,7 +47,7 @@ int main() {
 	float posE[3];
 	float rotE[3];
 	// Prompt for values
-	promptValues(posS, "starting position");
+	promptValues(posS, "Starting position");
 	promptValues(rotS, "Starting rotation");
 	promptValues(posE, "Ending position");
 	promptValues(rotE, "Ending rotation");
@@ -95,7 +95,7 @@ int main() {
 		printVals(resPoints[i][1]);
 		printf("\n");
 	}
-	printf("ENDING POINT\n");
+	printf("ENDING POINT\n------------\n");
 	printf("Position: ");
 	printVals(posE);
 	printf("Rotation: ");
@@ -109,7 +109,6 @@ int main() {
 void *promptValues(float *arr, char *name) {
 	printf("%s as comma separated values (x,y,z): ", name);
 	scanf("%f,%f,%f", &arr[0], &arr[1], &arr[2]);
-	printf("%.2f %.2f %.2f\n", arr[0], arr[1], arr[2]);
 }
 
 // PARAMS: The lengths of the InterpDatas, the startTime and endTime in InterpDatas 0 and n,
