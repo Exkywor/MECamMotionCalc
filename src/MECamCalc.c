@@ -10,6 +10,8 @@ void printVals(float vals[3]);
 
 int main() {
 	int span = 0;
+	printf("MASS EFFECT CAMERA MOTION CALCULATOR\n");
+	printf("------------------------------------\n");
 	printf("How many InterpDatas does the camera movement span? ");
 	if ((scanf("%d", &span) != 1) || (span <= 1)) {
 		printf("Error: Span must be a number bigger than 1\n");
@@ -28,11 +30,11 @@ int main() {
 			return 0;
 		}
 		if (i == 0) {
-			printf("At what time (in this InterpData) does the movement begin? ");
+			printf("At what time in InterpData %d does the movement begin? ", i+1);
 			scanf("%f", &startTime); 
 			timelineLength += (lengths[i] - startTime);
 		} else if (i == span-1) {
-			printf("At what time (in this InterpData) does the movement end? ");
+			printf("At what time in InterpData %d does the movement end? ", i+1);
 			scanf("%f", &endTime); 
 			timelineLength += endTime;
 		} else {
@@ -54,16 +56,16 @@ int main() {
 	
 	// Prompt for how many points the user wants to find
 	int nToFind;
-	printf("How many points do you want to find? ");
+	printf("For how many time points do you want to calculate values? ");
 	scanf("%d", &nToFind);
 	float pointsToFind[nToFind][2];
 	// NEED TO VALIDATE THAT THEY ARE NOT OUTSIDE INTERPDATA BOUNDS
 	for (int i = 0; i < nToFind; i++) {
 		int s;
 		float t;
-		printf("In which InterpData does point %d happen? ", i+1);
+		printf("In which InterpData (1 to n) does time point %d happen? ", i+1);
 		scanf("%d", &s);
-		printf("At what time of it does point %d happen? ", i+1);
+		printf("At what time of it does time point %d happen? ", i+1);
 		scanf("%f", &t);
 		pointsToFind[i][0] = (float)(s-1);
 		pointsToFind[i][1] = t;
@@ -80,7 +82,9 @@ int main() {
 	}
 
 	// Print resulting information
-	printf("\nSTARTING POINT\n--------------\n");
+	printf("\nSTARTING POINT\n");
+	printf("InterpData 1, at time %.2f\n", startTime);
+	printf("----------------------------\n");
 	printf("Position: ");
 	printVals(posS);
 	printf("Rotation: ");
@@ -88,18 +92,23 @@ int main() {
 	printf("\n");
 	// printf("REQUESTED POINTS\n----------------\n");
 	for (int i = 0; i < nToFind; i++) {
-		printf("POINT %d:\n--------\n", i+1);
+		printf("TIME POINT %d:\n", i+1);
+		printf("InterpData %d, at time %.2f\n", i+1, pointsToFind[i][1]);
+		printf("----------------------------\n");
 		printf("Position: ");
 		printVals(resPoints[i][0]);
 		printf("Rotation: ");
 		printVals(resPoints[i][1]);
 		printf("\n");
 	}
-	printf("ENDING POINT\n------------\n");
+	printf("ENDING POINT\n");
+	printf("InterpData %d, at time %.2f\n", span, endTime);
+	printf("----------------------------\n");
 	printf("Position: ");
 	printVals(posE);
 	printf("Rotation: ");
 	printVals(rotE);
+	printf("\n");
 
 	return 0;
 }	
