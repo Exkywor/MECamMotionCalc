@@ -53,4 +53,4 @@ Rotation: 0.00 25.35 -113.74
 ```
 
 ## Important
-As version 1.0.0, the input is not validated. However, there should be no issues as long as you input numerical values when prompted.
+As version 1.0.1, the input is not validated. However, there should be no issues as long as you input numerical values when prompted.
