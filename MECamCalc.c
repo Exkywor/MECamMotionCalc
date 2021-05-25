@@ -1,7 +1,11 @@
 #include <stdio.h>
 
 void *promptValues(float *arr, char *name);
-float relativize(float lenghts[], float startTime, float endTime, float point[]);
+float relativize(float lengths[], float startTime, float endTime, float point[]);
+float calculateVals(float res[2][3], float targetTime, float timelineLength,
+                    float posS[], float posE[], float rotS[], float rotE[]);
+float calculateVal(float x, float x2, float y2, float y1);
+void printVals(float vals[3]); 
 
 int main() {
 	int span;
@@ -13,7 +17,7 @@ int main() {
 	
 	float lengths[span];
 	float timelineLength;
-	// NEED TO VALIDATE THAT THEY ARE NOT OUTISDE INTERPDATA BOUNDS
+	// NEED TO VALIDATE THAT THEY ARE NOT OUTSIDE INTERPDATA BOUNDS
 	float startTime;
 	float endTime;
 	for (int i = 0; i < span; i++) {
@@ -44,9 +48,9 @@ int main() {
 	float rotE[3];
 	// Prompt for values
 	promptValues(posS, "starting position");
-	// promptValues(rotS, "starting rotation");
-	// promptValues(posE, "ending position");
-	// promptValues(rotE, "ending rotation");
+	promptValues(rotS, "starting rotation");
+	promptValues(posE, "ending position");
+	promptValues(rotE, "ending rotation");
 	
 	// Prompt for how many points the user wants to find
 	int nToFind;
@@ -68,21 +72,47 @@ int main() {
 	// [Point1>[Pos>[x,y,z],Rot>[x,y,z]]]
 	float resPoints[nToFind][2][3];
 	for (int i = 0; i < nToFind; i++) {
-		printf("%f\n", relativize(lengths, startTime, endTime, pointsToFind[i]));
+		calculateVals(resPoints[i],
+                      relativize(lengths, startTime, endTime, pointsToFind[i]),
+					  timelineLength,
+					  posS, posE,
+					  rotS, rotE);
 	}
-	
-	return 0;
-}
 
-// DOES NOT HAVE VALIDATION
-// Request user for positional and rotational values
+	// Print resulting information
+	printf("STARTING POINT\n--------------");
+	printf("Position: ");
+	printVals(posS);
+	printf("Rotation: ");
+	printVals(rotS);
+	printf("\n");
+	printf("REQUESTED POINTS\n----------------");
+	for (int i = 0; i < nToFind; i++) {
+		printf("POINT %d:\n--------", i);
+		printf("Position: ");
+		printVals(resPoints[i][0]);
+		printf("Rotation: ");
+		printVals(resPoints[i][1]);
+		printf("\n");
+	}
+	printf("ENDING POINT\n");
+	printf("Position: ");
+	printVals(posE);
+	printf("Rotation: ");
+	printVals(rotE);
+
+	return 0;
+}	
+	
+	
+// Prompts user for positional and rotational values
 void *promptValues(float *arr, char *name) {
 	printf("Input %s as comma separated values (x,y,z): ", name);
 	scanf("%f,%f,%f", &arr[0], &arr[1], &arr[2]);
 	printf("%f %f %f\n", arr[0], arr[1], arr[2]);
 }
 
-// The lengths of the InterpDatas, the startTime and endTime in InterpDatas 0 and n,
+// PARAMS: The lengths of the InterpDatas, the startTime and endTime in InterpDatas 0 and n,
 // and the point to convert to relative time [interp, time in interp]
 float relativize(float lengths[], float startTime, float endTime, float point[]) {
 	float realTime;
@@ -101,4 +131,29 @@ float relativize(float lengths[], float startTime, float endTime, float point[])
 		}
 	}
 	return realTime;
+}
+
+// PARAMS: The array in which to store the resulting values [pos[x,y,z], rot[x,y,z]], the target time, the length of the timeline
+// and the starting and ending values
+float calculateVals(float res[2][3], float targetTime, float timelineLength,
+                    float posS[], float posE[], float rotS[], float rotE[]) {
+    // Calculate position values
+	for (int i = 0; i < 3; i++) {
+		res[0][i] = calculateVal(targetTime, timelineLength, posE[i], posS[i]);
+	}
+	// Calculate rotation values
+	for (int i = 0; i < 3; i++) {
+		res[1][i] = calculateVal(targetTime, timelineLength, rotE[i], rotS[i]);
+	}
+}
+
+float calculateVal(float x, float x2, float y2, float y1) {
+	return (((y2 - y1) / x2) * x) + y1;
+}
+
+void printVals(float vals[3]) {
+	for (int i = 0; i < 3; i++) {
+		printf("%f ", vals[i]);
+	}
+	printf("\n");
 }
