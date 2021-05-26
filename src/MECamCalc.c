@@ -116,6 +116,13 @@ int main() {
 	printVals(rotE);
 	printf("\n");
 
+	fflush(stdin);
+	int prompt; 
+	do {
+		printf("Press Enter to exit the program");
+		prompt = getchar();
+	} while (prompt != '\n' && prompt != EOF);
+
 	return 0;
 }	
 	
