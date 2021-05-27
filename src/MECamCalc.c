@@ -3,7 +3,7 @@
 
 void promptValues(float arr[3], char *name);
 float relativize(float lengths[], float startTime, float endTime, float point[2]);
-float calculateVals(float res[2][3], float targetTime, float timelineLength,
+void calculateVals(float res[2][3], float targetTime, float timelineLength,
                     float posS[3], float posE[3], float rotS[3], float rotE[3]);
 float calculateVal(float x, float x2, float y2, float y1);
 void printVals(float vals[3]); 
@@ -156,7 +156,7 @@ float relativize(float lengths[], float startTime, float endTime, float point[2]
 
 // PARAMS: The array in which to store the resulting values [pos[x,y,z], rot[x,y,z]], the target time, the length of the timeline
 // and the starting and ending values
-float calculateVals(float res[2][3], float targetTime, float timelineLength,
+void calculateVals(float res[2][3], float targetTime, float timelineLength,
                     float posS[3], float posE[3], float rotS[3], float rotE[3]) {
     // Calculate position values
 	for (int i = 0; i < 3; i++) {
