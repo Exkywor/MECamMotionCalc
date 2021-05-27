@@ -18,11 +18,13 @@ Starting position as comma separated values (x,y,z): -2391.71, -51000.11, 1431.7
 Starting rotation as comma separated values (x,y,z): 0, 19.1693, -117.4392
 Ending position as comma separated values (x,y,z): -2408.41, -51032.3, 1444.4
 Ending rotation as comma separated values (x,y,z): 0, 25.35, -113.74
-For how many time points do you want to calculate values? 2
+For how many time points do you want to calculate values? 3
 In which InterpData (1 to n) does time point 1 happen? 1
-At what time of it does time point 1 happen? 5.55
+At what time of it does time point 1 happen? 5
 In which InterpData (1 to n) does time point 2 happen? 3
-At what time of it does time point 2 happen? 0
+At what time of it does time point 2 happen? 0.75
+In which InterpData (1 to n) does time point 3 happen? 4
+At what time of it does time point 3 happen? 0
 ```
 After this, the results will be:
 
@@ -34,22 +36,30 @@ Position: -2391.71 -51000.11 1431.70
 Rotation: 0.00 19.17 -117.44
 
 TIME POINT 1:
-InterpData 1, at time 5.55
+InterpData 1, at time 5.00
 ----------------------------
-Position: -2394.23 -51004.97 1433.62
-Rotation: 0.00 20.10 -116.88
+Position: -2393.46 -51003.49 1433.03
+Rotation: 0.00 19.82 -117.05
 
 TIME POINT 2:
-InterpData 3, at time 0.00
+InterpData 3, at time 0.75
 ----------------------------
-Position: -2399.30 -51014.73 1437.47
-Rotation: 0.00 21.98 -115.76
+Position: -2400.35 -51016.76 1438.27
+Rotation: 0.00 22.37 -115.53
+
+TIME POINT 3:
+InterpData 4, at time 0.00
+----------------------------
+Position: -2402.24 -51020.41 1439.71
+Rotation: 0.00 23.07 -115.11
 
 ENDING POINT
 InterpData 4, at time 4.40
 ----------------------------
 Position: -2408.41 -51032.30 1444.40
 Rotation: 0.00 25.35 -113.74
+
+Press Enter to exit the program
 ```
 
 ## Important
