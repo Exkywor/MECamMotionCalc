@@ -63,4 +63,4 @@ Press Enter to exit the program
 ```
 
 ## Important
-As version 1.0.2, the input is not validated. However, there should be no issues as long as you input numerical values when prompted.
+As of version 1.0.2, the input is not validated. However, there should be no issues as long as you input numerical values when prompted.
